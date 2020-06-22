@@ -6,6 +6,7 @@ spring:
   application:
     name: cafe-ordering-system
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
     hibernate:
       ddl-auto: none
@@ -13,7 +14,7 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/cafe?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://abee.pub:3306/cafe?serverTimezone=Asia/Shanghai
     username: root
     password: password
     tomcat:
