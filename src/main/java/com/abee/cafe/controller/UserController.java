@@ -39,13 +39,7 @@ public class UserController {
 
     @GetMapping("test/delete")
     public void deleteUser() {
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setTelephone("13300000000");
-        user.setEmail("test@foxmail.com");
-        user.setAdmin(false);
-        userService.deleteUser(user);
+        userService.deleteByTelephone("13300000000");
     }
 
     @GetMapping("test/update")
