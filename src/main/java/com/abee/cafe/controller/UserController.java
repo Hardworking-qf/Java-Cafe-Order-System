@@ -2,11 +2,9 @@ package com.abee.cafe.controller;
 
 import com.abee.cafe.entity.User;
 import com.abee.cafe.service.UserService;
+import com.abee.cafe.vo.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -15,41 +13,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("login")
+    public User login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest.getId(),
+                loginRequest.getPassword());
+    }
+
     @PostMapping
-    public User addUser(User user) {
-        return userService.addUser(user);
+    public User addUser(@RequestBody User user) throws Exception {
+        if (user.validate()) {
+            return userService.addUser(user);
+        } else {
+            throw new Exception("To validate your information.");
+        }
     }
 
-    @GetMapping("telephone")
-    public User findByTelephone(String telephone) {
-        return userService.findByTelephone(telephone);
+    @DeleteMapping
+    public void deleteUser(@RequestBody User user) {
+        userService.deleteUser(user);
     }
 
-    @GetMapping("test/add")
-    public User addUser() {
-        User user = new User();
-        user.setUsername("username");
-        user.setPassword("password");
-        user.setTelephone("13300000000");
-        user.setEmail("test@foxmail.com");
-        user.setAdmin(false);
-
-        return userService.addUser(user);
-    }
-
-    @GetMapping("test/delete")
-    public void deleteUser() {
-        userService.deleteByTelephone("13300000000");
-    }
-
-    @GetMapping("test/update")
-    public User updateUser() {
-        User user = new User();
-        user.setUsername("username-update");
-        user.setPassword("password-update");
-        user.setTelephone("13300000000");
-        user.setEmail("test@foxmail.com");
-        user.setAdmin(false);
+    @PutMapping
+    public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 }
