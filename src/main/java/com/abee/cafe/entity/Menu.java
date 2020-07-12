@@ -23,6 +23,7 @@ public class Menu {
 
     private float price;
 
+    @Column(name = "selling")
     private Boolean selling;
 
     private String icon;
@@ -30,4 +31,8 @@ public class Menu {
     private String name;
 
     private String description;
+
+    public Boolean validate() {
+        return amount >= -1 && price >= 0.0f;
+    }
 }
