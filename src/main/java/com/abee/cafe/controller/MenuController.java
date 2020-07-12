@@ -25,8 +25,13 @@ public class MenuController {
     }
     @PostMapping
     public Menu addMenu(@RequestBody Menu menu) throws Exception{
-        menu.setId((long) -1);
-        return menuService.addMenu(menu);
+        if(menu.validate()){
+            menu.setId((long) -1);
+            return menuService.addMenu(menu);
+        }
+        else{
+            throw new Exception("To validate your information.");
+        }
     }
     @DeleteMapping
     public void deleteUser(@RequestBody Menu menu){
