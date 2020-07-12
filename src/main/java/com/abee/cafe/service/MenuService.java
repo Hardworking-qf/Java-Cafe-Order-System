@@ -50,14 +50,16 @@ public class MenuService {
         menuRepository.deleteMenuById(menu.getId());
     }
 
-    public Token getToken(){
+    public Token getToken(Menu menu){
         //test
         String accessKey = "pjFykFd0F6fh04SttkLiGKGBHLVq--hzJJoBoVSd";
         String secretKey = "k6CK4XQpEhC85YjqWOOZUvIbBcCdmoCCWDGXRqSh";
         String bucket = "java-big-homework-pic";
+        String key=menu.getIcon();
+
         Auth auth = Auth.create(accessKey, secretKey);
-        String upToken = auth.uploadToken(bucket);
-        System.out.println("this is token:\n*********\n******\n"+upToken);
+        String upToken = auth.uploadToken(bucket, key);
+        System.out.println("this is token:\n"+upToken);
         //test
         return new Token(upToken);
     }

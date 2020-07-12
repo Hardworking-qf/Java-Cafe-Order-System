@@ -15,9 +15,9 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("token")
-    public Token getToken(){
-        return menuService.getToken();
+    @PostMapping("token")
+    public Token getToken(@RequestBody Menu menu){
+        return menuService.getToken(menu);
     }
     @GetMapping("menus")
     public List<Menu> getAllMenus(){
