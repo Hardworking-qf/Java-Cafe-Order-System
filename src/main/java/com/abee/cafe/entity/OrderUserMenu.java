@@ -26,7 +26,7 @@ public class OrderUserMenu {
 
     private String name;
 
-    private String descirbe;
+    private String describe;
 
     private String category;
 

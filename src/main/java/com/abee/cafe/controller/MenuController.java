@@ -36,7 +36,7 @@ public class MenuController {
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestBody Menu menu) {
+    public void deleteMenu(@RequestBody Menu menu) {
         menuService.deleteMenu(menu);
     }
 
