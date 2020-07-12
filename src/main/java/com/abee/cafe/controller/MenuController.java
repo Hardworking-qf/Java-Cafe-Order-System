@@ -1,7 +1,9 @@
 package com.abee.cafe.controller;
 
 import com.abee.cafe.entity.Menu;
+import com.abee.cafe.entity.Token;
 import com.abee.cafe.service.MenuService;
+import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,10 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @GetMapping("token")
+    public Token getToken(){
+        return menuService.getToken();
+    }
     @GetMapping("menus")
     public List<Menu> getAllMenus(){
         return menuService.getAll();

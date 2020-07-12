@@ -2,6 +2,8 @@ package com.abee.cafe.service;
 
 import com.abee.cafe.dao.MenuRepository;
 import com.abee.cafe.entity.Menu;
+import com.abee.cafe.entity.Token;
+import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,7 @@ public class MenuService {
 
     @Transactional(rollbackFor = Exception.class)
     public Menu addMenu(Menu menu){
+        System.out.println(menu.getName());
         if(menuRepository.findMenuById(menu.getId())==null)return menuRepository.save(menu);
         else return null;
     }
@@ -45,5 +48,17 @@ public class MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenu(Menu menu){
         menuRepository.deleteMenuById(menu.getId());
+    }
+
+    public Token getToken(){
+        //test
+        String accessKey = "pjFykFd0F6fh04SttkLiGKGBHLVq--hzJJoBoVSd";
+        String secretKey = "k6CK4XQpEhC85YjqWOOZUvIbBcCdmoCCWDGXRqSh";
+        String bucket = "java-big-homework-pic";
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
+        System.out.println("this is token:\n*********\n******\n"+upToken);
+        //test
+        return new Token(upToken);
     }
 }
