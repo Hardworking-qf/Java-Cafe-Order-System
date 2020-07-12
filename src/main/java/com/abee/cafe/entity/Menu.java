@@ -11,7 +11,7 @@ import java.net.URL;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="menu")
+@Table(name = "menu")
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
