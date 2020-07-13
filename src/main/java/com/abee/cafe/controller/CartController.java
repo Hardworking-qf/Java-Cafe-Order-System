@@ -5,12 +5,7 @@ import com.abee.cafe.entity.Cart;
 import com.abee.cafe.entity.User;
 import com.abee.cafe.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,11 +22,16 @@ public class CartController {
 
     @PostMapping
     public Cart addCart(@RequestBody Cart cart) {
-        return cartService.addCart(cart);
+        return cartService.updateCart(cart);
     }
 
     @PutMapping
     public Cart updateCart(@RequestBody Cart cart) {
         return cartService.updateCart(cart);
+    }
+
+    @DeleteMapping
+    public void deleteCart(@RequestBody Cart cart){
+        cartService.deleteCart(cart);
     }
 }

@@ -14,19 +14,26 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
 
-    @Transactional(rollbackFor = Exception.class)
-    public Cart addCart(Cart cart) {
-        return cartRepository.save(cart);
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public Cart updateCart(Cart cart) {
+        if(cart.getAmount()==0){
+            deleteCart(cart);
+            return null;
+        }
+        Cart newC=cartRepository.findCartByUserIDAndItemID(cart.getUserID(),cart.getItemID());
+        if(newC!=null) {
+            newC.setAmount(cart.getAmount());
+            return cartRepository.save(newC);
+        }
         return cartRepository.save(cart);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteCart(Cart cart) {
-        cartRepository.deleteCartById(cart.getId());
+        Cart newC=cartRepository.findCartByUserIDAndItemID(cart.getUserID(),cart.getItemID());
+        if(newC!=null)
+        cartRepository.deleteCartById(newC.getId());
     }
 
     @Transactional(rollbackFor = Exception.class)
