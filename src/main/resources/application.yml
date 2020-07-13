@@ -14,7 +14,7 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:mysql://abee.pub:3306/cafe?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://abee.pub:3306/cafe?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     username: root
     password: password
     tomcat:
