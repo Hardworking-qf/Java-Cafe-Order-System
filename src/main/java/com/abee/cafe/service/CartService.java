@@ -2,6 +2,7 @@ package com.abee.cafe.service;
 
 import com.abee.cafe.dao.CartRepository;
 import com.abee.cafe.entity.Cart;
+import com.abee.cafe.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,5 +25,10 @@ public class CartService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteCart(Cart cart) {
         cartRepository.deleteCartById(cart.getId());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<Cart> getCart(User user) {
+        return cartRepository.findCartsByUserID(user.getId());
     }
 }

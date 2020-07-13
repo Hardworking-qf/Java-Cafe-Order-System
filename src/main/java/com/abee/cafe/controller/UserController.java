@@ -23,11 +23,7 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody User user) throws Exception {
-        if (user.validate()) {
             return userService.addUser(user);
-        } else {
-            throw new Exception("To validate your information.");
-        }
     }
 
     @DeleteMapping

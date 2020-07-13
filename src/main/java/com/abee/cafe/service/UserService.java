@@ -87,12 +87,16 @@ public class UserService {
             if (ou != null && !ou.getId().equals(user.getId())) {
                 throw new Exception("电话号码已被使用");
             }
+            if(!CommonUtils.isTelephoneNumber(user.getTelephone()))
+                throw new Exception("请输入正确的电话号码");
         }
         if (user.getEmail() != null) {
             User ou = userRepository.findUserByEmail(user.getEmail());
             if (ou != null && !ou.getId().equals(user.getId())) {
                 throw new Exception("邮箱已被使用");
             }
+            if(!CommonUtils.isEmail(user.getEmail()))
+                throw new Exception("请输入正确的邮箱");
         }
         if (user.getUsername() != null) {
             User ou = userRepository.findUserByUsername(user.getUsername());
