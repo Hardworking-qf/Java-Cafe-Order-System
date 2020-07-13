@@ -7,6 +7,7 @@ import com.abee.cafe.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +28,10 @@ public class CartController {
     @PostMapping
     public Cart addCart(@RequestBody Cart cart) {
         return cartService.addCart(cart);
+    }
+
+    @PutMapping
+    public Cart updateCart(@RequestBody Cart cart) {
+        return cartService.updateCart(cart);
     }
 }

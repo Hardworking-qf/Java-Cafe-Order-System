@@ -4,10 +4,12 @@ import com.abee.cafe.dao.CartRepository;
 import com.abee.cafe.entity.Cart;
 import com.abee.cafe.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class CartService {
     @Autowired
     private CartRepository cartRepository;
