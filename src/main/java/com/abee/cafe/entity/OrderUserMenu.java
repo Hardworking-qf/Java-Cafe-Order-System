@@ -5,17 +5,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.net.URL;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "menu")
-public class Menu {
+@Table(name = "order-user-menu")
+public class OrderUserMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long orderID;
+
+    private Long userID;
+
+    private Long itemID;
+
+    private String username;
+
+    private String name;
+
+    private String describe;
 
     private String category;
 
@@ -23,16 +34,9 @@ public class Menu {
 
     private float price;
 
-    @Column(name = "selling")
-    private Boolean selling;
-
     private String icon;
 
-    private String name;
+    private Long time;
 
-    private String description;
-
-    public Boolean validate() {
-        return amount >= -1 && price >= 0.0f;
-    }
+    private String status;
 }

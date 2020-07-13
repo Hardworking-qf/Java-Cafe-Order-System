@@ -19,47 +19,49 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    @Transactional(rollbackFor=Exception.class)
-    public List<Menu> getAll(){
+    @Transactional(rollbackFor = Exception.class)
+    public List<Menu> getAll() {
         return menuRepository.findAll();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<Menu> getByCategory(String category){
+    public List<Menu> getByCategory(String category) {
         return menuRepository.findMenusByCategory(category);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<Menu> getByNameLike(String name){
+    public List<Menu> getByNameLike(String name) {
         return menuRepository.findMenusByNameLike(name);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Menu addMenu(Menu menu){
+    public Menu addMenu(Menu menu) {
         System.out.println(menu.getName());
-        if(menuRepository.findMenuById(menu.getId())==null)return menuRepository.save(menu);
+        if (menuRepository.findMenuById(menu.getId()) == null) return menuRepository.save(menu);
         else return null;
     }
+
     @Transactional(rollbackFor = Exception.class)
-    public Menu updateMenu(Menu menu){
-        if(menuRepository.findMenuById(menu.getId())!=null)return menuRepository.save(menu);
+    public Menu updateMenu(Menu menu) {
+        if (menuRepository.findMenuById(menu.getId()) != null) return menuRepository.save(menu);
         else return null;
     }
+
     @Transactional(rollbackFor = Exception.class)
-    public void deleteMenu(Menu menu){
+    public void deleteMenu(Menu menu) {
         menuRepository.deleteMenuById(menu.getId());
     }
 
-    public Token getToken(Menu menu){
+    public Token getToken(Menu menu) {
         //test
         String accessKey = "pjFykFd0F6fh04SttkLiGKGBHLVq--hzJJoBoVSd";
         String secretKey = "k6CK4XQpEhC85YjqWOOZUvIbBcCdmoCCWDGXRqSh";
         String bucket = "java-big-homework-pic";
-        String key=menu.getIcon();
+        String key = menu.getIcon();
 
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket, key);
-        System.out.println("this is token:\n"+upToken);
+        System.out.println("this is token:\n" + upToken);
         //test
         return new Token(upToken);
     }

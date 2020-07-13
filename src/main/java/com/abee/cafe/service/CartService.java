@@ -12,15 +12,17 @@ public class CartService {
     private CartRepository cartRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public Cart addCart(Cart cart){
+    public Cart addCart(Cart cart) {
         return cartRepository.save(cart);
     }
+
     @Transactional(rollbackFor = Exception.class)
-    public Cart updateCart(Cart cart){
+    public Cart updateCart(Cart cart) {
         return cartRepository.save(cart);
     }
+
     @Transactional(rollbackFor = Exception.class)
-    public void deleteCart(Cart cart){
+    public void deleteCart(Cart cart) {
         cartRepository.deleteCartById(cart.getId());
     }
 }

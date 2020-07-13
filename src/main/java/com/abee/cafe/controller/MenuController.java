@@ -16,24 +16,32 @@ public class MenuController {
     private MenuService menuService;
 
     @PostMapping("token")
-    public Token getToken(@RequestBody Menu menu){
+    public Token getToken(@RequestBody Menu menu) {
         return menuService.getToken(menu);
     }
+
     @GetMapping("menus")
-    public List<Menu> getAllMenus(){
+    public List<Menu> getAllMenus() {
         return menuService.getAll();
     }
+
     @PostMapping
-    public Menu addMenu(@RequestBody Menu menu) throws Exception{
-        menu.setId((long) -1);
-        return menuService.addMenu(menu);
+    public Menu addMenu(@RequestBody Menu menu) throws Exception {
+        if (menu.validate()) {
+            menu.setId((long) -1);
+            return menuService.addMenu(menu);
+        } else {
+            throw new Exception("To validate your information.");
+        }
     }
+
     @DeleteMapping
-    public void deleteUser(@RequestBody Menu menu){
+    public void deleteMenu(@RequestBody Menu menu) {
         menuService.deleteMenu(menu);
     }
+
     @PutMapping
-    public Menu updateMenu(@RequestBody Menu menu){
+    public Menu updateMenu(@RequestBody Menu menu) {
         return menuService.updateMenu(menu);
     }
 }

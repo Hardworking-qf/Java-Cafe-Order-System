@@ -26,11 +26,11 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<Order> addFromCart(Long userID,Long orderID){
-        List<Cart> carts=cartRepository.findCartsByUserID(userID);
-        List<Order> orders=new ArrayList<Order>();
-        for(Cart cart:carts){
-            Order order=new Order();
+    public List<Order> addFromCart(Long userID, Long orderID) {
+        List<Cart> carts = cartRepository.findCartsByUserID(userID);
+        List<Order> orders = new ArrayList<Order>();
+        for (Cart cart : carts) {
+            Order order = new Order();
             order.setAmount(cart.getAmount());
             order.setItemID(cart.getItemID());
             order.setOrderID(orderID);
