@@ -15,14 +15,9 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping
+    @PostMapping
     public List<Cart> getCart(@RequestBody User user) {
         return cartService.getCart(user);
-    }
-
-    @PostMapping
-    public Cart addCart(@RequestBody Cart cart) {
-        return cartService.updateCart(cart);
     }
 
     @PutMapping
