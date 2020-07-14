@@ -28,6 +28,7 @@ public class OrderService {
         this.userOrderRepository=userOrderRepository;
     }
 
+    // 增加UserOrder项
     @Transactional(rollbackFor = Exception.class)
     public UserOrder addUserOrder(UserOrder userOrder){
         /*validate*/
@@ -38,7 +39,7 @@ public class OrderService {
         return newUserOrder;
     }
 
-
+    // 从购物车下单
     @Transactional(rollbackFor = Exception.class)
     public List<Order> addFromCart(Long userID, Long orderID) {
         List<Cart> carts = cartRepository.findCartsByUserID(userID);
@@ -51,7 +52,7 @@ public class OrderService {
             order.setPrice(menuRepository.findMenuById(cart.getItemID()).getPrice());
             orders.add(order);
         }
+        cartRepository.deleteAll(carts);// 清空购物车
         return orderRepository.saveAll(orders);
     }
-
 }
