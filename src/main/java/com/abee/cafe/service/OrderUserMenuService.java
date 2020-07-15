@@ -99,9 +99,10 @@ public class OrderUserMenuService {
 
         return null;
     }
+
     // 通过订单ID返回订单
     @Transactional(rollbackFor = Exception.class)
-    OrderSearchResultList findOrderByOrderID(Long orderID) {
+    public OrderSearchResultList findOrderByOrderID(Long orderID) {
         List<OrderSearchResultList> temp = toReturnList(orderUserMenuRepository.findOrderUserMenusByOrderID(orderID));
         if (temp.size() == 0) return null;
         else return temp.get(0);

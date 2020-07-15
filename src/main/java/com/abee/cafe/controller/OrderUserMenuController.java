@@ -1,5 +1,6 @@
 package com.abee.cafe.controller;
 
+import com.abee.cafe.entity.OrderSearchResult;
 import com.abee.cafe.entity.OrderSearchResultList;
 import com.abee.cafe.entity.OrderUserMenu;
 import com.abee.cafe.service.OrderUserMenuService;
@@ -18,7 +19,12 @@ public class OrderUserMenuController {
     private OrderUserMenuService orderUserMenuService;
 
     @PostMapping
-    public List<OrderSearchResultList> getAll(){
+    public List<OrderSearchResultList> getAll() {
         return orderUserMenuService.getAll();
+    }
+
+    @PostMapping("findByID")
+    public OrderSearchResultList getByID(Long ID) {
+        return orderUserMenuService.findOrderByOrderID(ID);
     }
 }
