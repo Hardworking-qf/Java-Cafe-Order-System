@@ -6,6 +6,7 @@ import com.abee.cafe.dao.OrderRepository;
 import com.abee.cafe.dao.UserOrderRepository;
 import com.abee.cafe.entity.Cart;
 import com.abee.cafe.entity.Order;
+import com.abee.cafe.entity.Menu;
 import com.abee.cafe.entity.UserOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class OrderService {
 
     // 增加UserOrder项
     @Transactional(rollbackFor = Exception.class)
-    public UserOrder addUserOrder(UserOrder userOrder){
+    public UserOrder addUserOrder(UserOrder userOrder)throws Exception{
         /*validate*/
 
         userOrder.setStatus("succeed");
@@ -41,7 +42,7 @@ public class OrderService {
 
     // 从购物车下单
     @Transactional(rollbackFor = Exception.class)
-    public List<Order> addFromCart(Long userID, Long orderID) {
+    public List<Order> addFromCart(Long userID, Long orderID)throws Exception {
         List<Cart> carts = cartRepository.findCartsByUserID(userID);
         List<Order> orders = new ArrayList<Order>();
         for (Cart cart : carts) {
@@ -51,8 +52,17 @@ public class OrderService {
             order.setOrderID(orderID);
             order.setPrice(menuRepository.findMenuById(cart.getItemID()).getPrice());
             orders.add(order);
+
+            Menu newMenu=menuRepository.findMenuById(cart.getItemID());
+            newMenu.setAmount(newMenu.getAmount()-order.getAmount());
+            if(newMenu.getAmount()<0)
+                throw new Exception("库存不足，请修改购物车后重新提交订单");
+            newMenu.setSold(newMenu.getSold()+order.getAmount());
+            menuRepository.save(newMenu);
         }
         cartRepository.deleteAll(carts);// 清空购物车
         return orderRepository.saveAll(orders);
     }
+
+    //
 }
