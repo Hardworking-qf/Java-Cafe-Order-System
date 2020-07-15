@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -22,9 +23,9 @@ public class OrderUserMenu {
 
     private Long menuID;
 
-    private String username;
+    private String userName;
 
-    private String name;
+    private String itemName;
 
     private String description;
 
@@ -36,7 +37,7 @@ public class OrderUserMenu {
 
     private String icon;
 
-    private Long time;
+    private Timestamp time;
 
-    private String status;
+    private String orderStatus;
 }

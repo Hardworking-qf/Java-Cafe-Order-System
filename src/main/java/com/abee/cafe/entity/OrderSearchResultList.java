@@ -2,6 +2,7 @@ package com.abee.cafe.entity;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -12,7 +13,7 @@ public class OrderSearchResultList {
 
     private String UserName;
 
-    private Long time;
+    private Timestamp time;
 
     private String status;
 

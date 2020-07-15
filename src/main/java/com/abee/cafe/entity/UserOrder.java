@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class UserOrder {
 
     private Long userID;
 
-    private Long time;
+    private Timestamp time;
 
     private String status;
 }

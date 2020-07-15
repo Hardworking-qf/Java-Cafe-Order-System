@@ -1,10 +1,7 @@
 package com.abee.cafe.service;
 
 import com.abee.cafe.dao.*;
-import com.abee.cafe.entity.Order;
-import com.abee.cafe.entity.OrderSearchResult;
-import com.abee.cafe.entity.OrderSearchResultList;
-import com.abee.cafe.entity.OrderUserMenu;
+import com.abee.cafe.entity.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,16 +41,16 @@ public class OrderUserMenuService {
                     OrderUserMenu list0 = v.get(0);
                     tempResultList.setOrderID(k);
                     tempResultList.setUserID(list0.getUserID());
-                    tempResultList.setUserName(list0.getUsername());
+                    tempResultList.setUserName(list0.getUserName());
                     tempResultList.setTime(list0.getTime());
-                    tempResultList.setStatus(list0.getStatus());
+                    tempResultList.setStatus(list0.getOrderStatus());
 
                     List<OrderSearchResult> tempList = new ArrayList<OrderSearchResult>();
                     for (OrderUserMenu l : v) {
                         OrderSearchResult orderSearchResult = new OrderSearchResult();
                         orderSearchResult.setId(l.getId());
                         orderSearchResult.setItemID(l.getMenuID());
-                        orderSearchResult.setItemName(l.getName());
+                        orderSearchResult.setItemName(l.getItemName());
                         orderSearchResult.setDescribe(l.getDescription());
                         orderSearchResult.setCategory(l.getCategory());
                         orderSearchResult.setAmount(l.getAmount());
@@ -74,7 +71,7 @@ public class OrderUserMenuService {
         return toReturnList(orderUserMenuRepository.findAll());
     }
 
-    // 通过用户ID返回订单列表
+    /*// 通过用户ID返回订单列表
     @Transactional(rollbackFor = Exception.class)
     List<OrderSearchResultList> findOrdersByUserID(Long userID) {
         return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
@@ -97,7 +94,12 @@ public class OrderUserMenuService {
 
         return null;
     }
+*/
+    @Transactional(rollbackFor = Exception.class)
+    List<OrderSearchResultList> findOrdersByUser(User user) {
 
+        return null;
+    }
     // 通过订单ID返回订单
     @Transactional(rollbackFor = Exception.class)
     OrderSearchResultList findOrderByOrderID(Long orderID) {
