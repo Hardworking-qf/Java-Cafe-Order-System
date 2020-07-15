@@ -23,7 +23,7 @@ public class OrderUserMenu {
 
     private Long menuID;
 
-    private String itemName;
+    private String itemname;
 
     private String description;
 
@@ -37,5 +37,5 @@ public class OrderUserMenu {
 
     private Timestamp time;
 
-    private String orderStatus;
+    private String orderstatus;
 }

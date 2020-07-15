@@ -3,6 +3,7 @@ package com.abee.cafe.dao;
 import com.abee.cafe.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 /*
 用户ID	id
 用户名	username

@@ -42,14 +42,14 @@ public class OrderUserMenuService {
                     tempResultList.setOrderID(k);
                     tempResultList.setUserID(list0.getUserID());
                     tempResultList.setTime(list0.getTime());
-                    tempResultList.setOrderStatus(list0.getOrderStatus());
+                    tempResultList.setOrderStatus(list0.getOrderstatus());
 
                     List<OrderSearchResult> tempList = new ArrayList<OrderSearchResult>();
                     for (OrderUserMenu l : v) {
                         OrderSearchResult orderSearchResult = new OrderSearchResult();
                         orderSearchResult.setId(l.getId());
                         orderSearchResult.setMenuID(l.getMenuID());
-                        orderSearchResult.setItemName(l.getItemName());
+                        orderSearchResult.setItemName(l.getItemname());
                         orderSearchResult.setDescription(l.getDescription());
                         orderSearchResult.setCategory(l.getCategory());
                         orderSearchResult.setAmount(l.getAmount());
@@ -95,9 +95,19 @@ public class OrderUserMenuService {
     }
 */
     @Transactional(rollbackFor = Exception.class)
-    List<OrderSearchResultList> findOrdersByUser(User user) {
-
-        return null;
+    public List<OrderSearchResultList> findOrdersByUser(User user) {
+        Long userID = null;
+        if (user.getId() != null) {
+            userID = user.getId();
+        } else if (user.getUsername() != null) {
+            userID = userRepository.findUserByUsername(user.getUsername()).getId();
+        } else if (user.getEmail() != null) {
+            userID = userRepository.findUserByEmail(user.getUsername()).getId();
+        } else if (user.getTelephone() != null) {
+            userRepository.findUserByTelephone(user.getUsername()).getId();
+        }
+        if (userID == null) return null;
+        else return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
     }
 
     // 通过订单ID返回订单
