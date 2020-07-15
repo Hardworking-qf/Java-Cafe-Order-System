@@ -2,6 +2,7 @@ package com.abee.cafe.service;
 
 import com.abee.cafe.dao.*;
 import com.abee.cafe.entity.Order;
+import com.abee.cafe.entity.OrderSearchResultList;
 import com.abee.cafe.entity.OrderUserMenu;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +31,15 @@ public class OrderUserMenuService {
         this.userOrderRepository=userOrderRepository;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    List<OrderSearchResultList> getAll(){
+
+        return null;
+    }
+
     // 通过用户ID返回订单列表
     @Transactional(rollbackFor = Exception.class)
-    List<OrderUserMenu> findOrdersByUserID(Long userID){
+    List<OrderSearchResultList> findOrdersByUserID(Long userID){
 
         return null;
     }
