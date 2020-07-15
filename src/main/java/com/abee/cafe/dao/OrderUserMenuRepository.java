@@ -23,5 +23,5 @@ import java.util.List;
 public interface OrderUserMenuRepository extends JpaRepository<OrderUserMenu, Long> {
     List<OrderUserMenu> findOrderUserMenusByOrderID(Long OrderID);
 
-    OrderUserMenu findOrderUserMenusByUserID(Long UserID);
+    List<OrderUserMenu> findOrderUserMenusByUserID(Long UserID);
 }

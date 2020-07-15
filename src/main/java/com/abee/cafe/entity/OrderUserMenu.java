@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order-user-menu")
+@Table(name = "order_user_menu")
 public class OrderUserMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class OrderUserMenu {
 
     private String name;
 
-    private String describe;
+    private String description;
 
     private String category;
 

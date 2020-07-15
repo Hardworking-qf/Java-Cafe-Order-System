@@ -35,11 +35,9 @@ public class OrderUserMenuService {
         this.userOrderRepository = userOrderRepository;
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public List<OrderSearchResultList> getAll() {
+    private List<OrderSearchResultList> toReturnList(List<OrderUserMenu> inputList) {
         List<OrderSearchResultList> resultLists = new ArrayList<OrderSearchResultList>();
-        orderUserMenuRepository.findAll()
-                .stream()
+        inputList.stream()
                 .collect(Collectors.groupingBy(OrderUserMenu::getOrderID))
                 .forEach((k, v) -> {
                     OrderSearchResultList tempResultList = new OrderSearchResultList();
@@ -56,7 +54,7 @@ public class OrderUserMenuService {
                         orderSearchResult.setId(l.getId());
                         orderSearchResult.setItemID(l.getItemID());
                         orderSearchResult.setItemName(l.getName());
-                        orderSearchResult.setDescribe(l.getDescribe());
+                        orderSearchResult.setDescribe(l.getDescription());
                         orderSearchResult.setCategory(l.getCategory());
                         orderSearchResult.setAmount(l.getAmount());
                         orderSearchResult.setPrice(l.getPrice());
@@ -70,15 +68,20 @@ public class OrderUserMenuService {
         return resultLists;
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<OrderSearchResultList> getAll() {
+        return toReturnList(orderUserMenuRepository.findAll());
+    }
+
     // 通过用户ID返回订单列表
     @Transactional(rollbackFor = Exception.class)
     List<OrderSearchResultList> findOrdersByUserID(Long userID) {
-
-        return null;
+        return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
     }
 
     // 通过用户名返回订单列表
-    List<OrderUserMenu> findOrdersByUserName(String userName) {
+    List<OrderSearchResultList> findOrdersByUserName(String userName) {
 
         return null;
     }
@@ -97,8 +100,9 @@ public class OrderUserMenuService {
 
     // 通过订单ID返回订单
     @Transactional(rollbackFor = Exception.class)
-    List<OrderUserMenu> findOrderByOrderID(Long orderID) {
-
-        return null;
+    OrderSearchResultList findOrderByOrderID(Long orderID) {
+        List<OrderSearchResultList> temp = toReturnList(orderUserMenuRepository.findOrderUserMenusByOrderID(orderID));
+        if (temp.size() == 0) return null;
+        else return temp.get(0);
     }
 }
