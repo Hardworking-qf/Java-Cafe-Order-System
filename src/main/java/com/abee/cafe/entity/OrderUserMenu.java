@@ -20,7 +20,7 @@ public class OrderUserMenu {
 
     private Long userID;
 
-    private Long itemID;
+    private Long menuID;
 
     private String username;
 

@@ -52,7 +52,7 @@ public class OrderUserMenuService {
                     for (OrderUserMenu l : v) {
                         OrderSearchResult orderSearchResult = new OrderSearchResult();
                         orderSearchResult.setId(l.getId());
-                        orderSearchResult.setItemID(l.getItemID());
+                        orderSearchResult.setItemID(l.getMenuID());
                         orderSearchResult.setItemName(l.getName());
                         orderSearchResult.setDescribe(l.getDescription());
                         orderSearchResult.setCategory(l.getCategory());
