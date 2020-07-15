@@ -72,18 +72,19 @@ public class OrderUserMenuService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public List<OrderSearchResultList> findOrdersByUser(User user) {
-        Long userID = null;
+    public List<OrderSearchResultList> findOrdersByUser(User user) throws Exception{
+        User newUser = null;
         if (user.getId() != null) {
-            userID = user.getId();
+            newUser = userRepository.findUserById(user.getId());
         } else if (user.getUsername() != null) {
-            userID = userRepository.findUserByUsername(user.getUsername()).getId();
+            newUser = userRepository.findUserByUsername(user.getUsername());
         } else if (user.getEmail() != null) {
-            userID = userRepository.findUserByEmail(user.getEmail()).getId();
+            newUser = userRepository.findUserByEmail(user.getEmail());
         } else if (user.getTelephone() != null) {
-            userID=userRepository.findUserByTelephone(user.getTelephone()).getId();
+            newUser = userRepository.findUserByTelephone(user.getTelephone());
         }
-        return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
+        if (newUser.getId()==null) throw  new Exception("查找不到该用户");
+        else return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(newUser.getId()));
     }
 
     // 通过订单ID返回订单

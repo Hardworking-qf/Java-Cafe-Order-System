@@ -28,7 +28,7 @@ public class OrderUserMenuController {
     }
 
     @PostMapping
-    public List<OrderSearchResultList> getByUser(@RequestBody User user){
+    public List<OrderSearchResultList> getByUser(@RequestBody User user) throws  Exception{
         System.out.println(user.getId());
         return orderUserMenuService.findOrdersByUser(user);
     }
