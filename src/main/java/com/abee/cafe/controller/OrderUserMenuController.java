@@ -6,10 +6,7 @@ import com.abee.cafe.entity.OrderUserMenu;
 import com.abee.cafe.entity.User;
 import com.abee.cafe.service.OrderUserMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,18 +16,20 @@ public class OrderUserMenuController {
     @Autowired
     private OrderUserMenuService orderUserMenuService;
 
-    @PostMapping
+
+    @GetMapping
     public List<OrderSearchResultList> getAll() {
         return orderUserMenuService.getAll();
     }
 
     @PostMapping("findByID")
-    public OrderSearchResultList getByID(Long ID) {
+    public OrderSearchResultList getByID(@RequestBody Long ID) {
         return orderUserMenuService.findOrderByOrderID(ID);
     }
 
-    @PostMapping("findByUser")
-    public List<OrderSearchResultList> getByUser(User user){
+    @PostMapping
+    public List<OrderSearchResultList> getByUser(@RequestBody User user){
+        System.out.println(user.getId());
         return orderUserMenuService.findOrdersByUser(user);
     }
 }

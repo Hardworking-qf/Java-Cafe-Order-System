@@ -70,30 +70,7 @@ public class OrderUserMenuService {
         return toReturnList(orderUserMenuRepository.findAll());
     }
 
-    /*// 通过用户ID返回订单列表
-    @Transactional(rollbackFor = Exception.class)
-    List<OrderSearchResultList> findOrdersByUserID(Long userID) {
-        return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
-    }
 
-    // 通过用户名返回订单列表
-    List<OrderSearchResultList> findOrdersByUserName(String userName) {
-
-        return null;
-    }
-
-    // 通过用户邮箱返回订单列表
-    List<OrderUserMenu> findOrdersByUserEmail(String userEmail) {
-
-        return null;
-    }
-
-    // 通过用户电话返回订单列表
-    List<OrderUserMenu> findOrdersByUserTel(String userTel) {
-
-        return null;
-    }
-*/
     @Transactional(rollbackFor = Exception.class)
     public List<OrderSearchResultList> findOrdersByUser(User user) {
         Long userID = null;
@@ -102,12 +79,11 @@ public class OrderUserMenuService {
         } else if (user.getUsername() != null) {
             userID = userRepository.findUserByUsername(user.getUsername()).getId();
         } else if (user.getEmail() != null) {
-            userID = userRepository.findUserByEmail(user.getUsername()).getId();
+            userID = userRepository.findUserByEmail(user.getEmail()).getId();
         } else if (user.getTelephone() != null) {
-            userRepository.findUserByTelephone(user.getUsername()).getId();
+            userID=userRepository.findUserByTelephone(user.getTelephone()).getId();
         }
-        if (userID == null) return null;
-        else return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
+        return toReturnList(orderUserMenuRepository.findOrderUserMenusByUserID(userID));
     }
 
     // 通过订单ID返回订单
