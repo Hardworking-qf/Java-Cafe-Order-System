@@ -2,6 +2,9 @@ package com.abee.cafe.dao;
 
 import com.abee.cafe.entity.OrderUserMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
 /*
 订单项ID	id
 订单ID	OrderID
@@ -18,7 +21,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 订单状态	status
  */
 public interface OrderUserMenuRepository extends JpaRepository<OrderUserMenu, Long> {
-    OrderUserMenu findOrderUserMenuByOrderID(Long OrderID);
+    List<OrderUserMenu> findOrderUserMenusByOrderID(Long OrderID);
 
-    OrderUserMenu findOrderUserMenuByUserID(Long UserID);
+    OrderUserMenu findOrderUserMenusByUserID(Long UserID);
 }

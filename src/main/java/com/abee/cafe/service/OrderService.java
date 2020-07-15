@@ -22,27 +22,27 @@ public class OrderService {
     private final MenuRepository menuRepository;
     private final UserOrderRepository userOrderRepository;
 
-    public OrderService(CartRepository cartRepository, OrderRepository orderRepository, MenuRepository menuRepository,UserOrderRepository userOrderRepository) {
+    public OrderService(CartRepository cartRepository, OrderRepository orderRepository, MenuRepository menuRepository, UserOrderRepository userOrderRepository) {
         this.cartRepository = cartRepository;
         this.orderRepository = orderRepository;
         this.menuRepository = menuRepository;
-        this.userOrderRepository=userOrderRepository;
+        this.userOrderRepository = userOrderRepository;
     }
 
     // 增加UserOrder项
     @Transactional(rollbackFor = Exception.class)
-    public UserOrder addUserOrder(UserOrder userOrder)throws Exception{
+    public UserOrder addUserOrder(UserOrder userOrder) throws Exception {
         /*validate*/
 
         userOrder.setStatus("succeed");
-        UserOrder newUserOrder=userOrderRepository.save(userOrder);
-        addFromCart(newUserOrder.getUserID(),newUserOrder.getOrderID());
+        UserOrder newUserOrder = userOrderRepository.save(userOrder);
+        addFromCart(newUserOrder.getUserID(), newUserOrder.getOrderID());
         return newUserOrder;
     }
 
     // 从购物车下单
     @Transactional(rollbackFor = Exception.class)
-    public List<Order> addFromCart(Long userID, Long orderID)throws Exception {
+    public List<Order> addFromCart(Long userID, Long orderID) throws Exception {
         List<Cart> carts = cartRepository.findCartsByUserID(userID);
         List<Order> orders = new ArrayList<Order>();
         for (Cart cart : carts) {
@@ -53,11 +53,11 @@ public class OrderService {
             order.setPrice(menuRepository.findMenuById(cart.getItemID()).getPrice());
             orders.add(order);
 
-            Menu newMenu=menuRepository.findMenuById(cart.getItemID());
-            newMenu.setAmount(newMenu.getAmount()-order.getAmount());
-            if(newMenu.getAmount()<0)
+            Menu newMenu = menuRepository.findMenuById(cart.getItemID());
+            newMenu.setAmount(newMenu.getAmount() - order.getAmount());
+            if (newMenu.getAmount() < 0)
                 throw new Exception("库存不足，请修改购物车后重新提交订单");
-            newMenu.setSold(newMenu.getSold()+order.getAmount());
+            newMenu.setSold(newMenu.getSold() + order.getAmount());
             menuRepository.save(newMenu);
         }
         cartRepository.deleteAll(carts);// 清空购物车
