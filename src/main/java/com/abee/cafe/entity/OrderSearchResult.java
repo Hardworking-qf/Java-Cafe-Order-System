@@ -6,11 +6,11 @@ import lombok.Data;
 public class OrderSearchResult{
     private Long id;
 
-    private Long ItemID;
+    private Long menuID;
 
-    private String ItemName;
+    private String itemName;
 
-    private String describe;
+    private String description;
 
     private String category;
 
@@ -18,5 +18,5 @@ public class OrderSearchResult{
 
     private float price;
 
-    private String url;
+    private String icon;
 }

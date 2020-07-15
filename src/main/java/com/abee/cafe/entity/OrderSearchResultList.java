@@ -7,15 +7,13 @@ import java.util.List;
 
 @Data
 public class OrderSearchResultList {
-    private Long OrderID;
+    private Long orderID;
 
-    private Long UserID;
-
-    private String UserName;
+    private Long userID;
 
     private Timestamp time;
 
-    private String status;
+    private String orderStatus;
 
     private List<OrderSearchResult> list;
 }

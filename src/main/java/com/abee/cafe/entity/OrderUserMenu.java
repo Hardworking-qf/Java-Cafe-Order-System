@@ -23,8 +23,6 @@ public class OrderUserMenu {
 
     private Long menuID;
 
-    private String userName;
-
     private String itemName;
 
     private String description;

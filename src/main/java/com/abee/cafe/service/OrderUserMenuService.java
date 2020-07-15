@@ -41,21 +41,20 @@ public class OrderUserMenuService {
                     OrderUserMenu list0 = v.get(0);
                     tempResultList.setOrderID(k);
                     tempResultList.setUserID(list0.getUserID());
-                    tempResultList.setUserName(list0.getUserName());
                     tempResultList.setTime(list0.getTime());
-                    tempResultList.setStatus(list0.getOrderStatus());
+                    tempResultList.setOrderStatus(list0.getOrderStatus());
 
                     List<OrderSearchResult> tempList = new ArrayList<OrderSearchResult>();
                     for (OrderUserMenu l : v) {
                         OrderSearchResult orderSearchResult = new OrderSearchResult();
                         orderSearchResult.setId(l.getId());
-                        orderSearchResult.setItemID(l.getMenuID());
+                        orderSearchResult.setMenuID(l.getMenuID());
                         orderSearchResult.setItemName(l.getItemName());
-                        orderSearchResult.setDescribe(l.getDescription());
+                        orderSearchResult.setDescription(l.getDescription());
                         orderSearchResult.setCategory(l.getCategory());
                         orderSearchResult.setAmount(l.getAmount());
                         orderSearchResult.setPrice(l.getPrice());
-                        orderSearchResult.setUrl(l.getIcon());
+                        orderSearchResult.setIcon(l.getIcon());
                         tempList.add(orderSearchResult);
                     }
 
