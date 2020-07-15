@@ -21,6 +21,8 @@ public class Menu {
 
     private Long amount;
 
+    private Long sold;
+
     private float price;
 
     @Column(name = "selling")

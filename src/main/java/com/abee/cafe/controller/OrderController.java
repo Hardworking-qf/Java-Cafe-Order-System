@@ -18,7 +18,7 @@ public class OrderController {
 
 
     @PostMapping
-    public UserOrder addOrder(@RequestBody UserOrder userOrder){
+    public UserOrder addOrder(@RequestBody UserOrder userOrder)throws Exception{
         return orderService.addUserOrder(userOrder);
     }
 }
