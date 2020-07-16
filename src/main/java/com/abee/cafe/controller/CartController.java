@@ -26,7 +26,7 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void deleteCart(@RequestBody Cart cart){
-        cartService.deleteCart(cart);
+    public void deleteCart(@RequestBody User user){
+        cartService.deleteCart(user);
     }
 }

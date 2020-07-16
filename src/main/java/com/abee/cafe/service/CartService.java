@@ -14,11 +14,13 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
 
-    // 刷新购物车项
+    // 刷新购物车项，若数量为0则删除该行
     @Transactional(rollbackFor = Exception.class)
     public Cart updateCart(Cart cart) {
         if (cart.getAmount() == 0) {
-            deleteCart(cart);
+            Cart newC=cartRepository.findCartByUserIDAndItemID(cart.getUserID(),cart.getItemID());
+            if(newC!=null)
+                cartRepository.delete(newC);
             return null;
         }
         Cart newC = cartRepository.findCartByUserIDAndItemID(cart.getUserID(), cart.getItemID());
@@ -29,12 +31,12 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    // 删除购物车项
+    // 清空用户购物车
     @Transactional(rollbackFor = Exception.class)
-    public void deleteCart(Cart cart) {
-        Cart newC = cartRepository.findCartByUserIDAndItemID(cart.getUserID(), cart.getItemID());
-        if (newC != null)
-            cartRepository.deleteCartById(newC.getId());
+    public void deleteCart(User user) {
+        List<Cart> carts = cartRepository.findCartsByUserID(user.getId());
+        if(carts!=null)
+            cartRepository.deleteAll(carts);
     }
 
     // 获取某用户的购物车列表
